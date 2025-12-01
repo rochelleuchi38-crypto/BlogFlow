@@ -279,9 +279,9 @@ protected $allowedFonts = [
 
     // --- GET: show registration page ---
     $error = $_SESSION['register_error'] ?? '';
-    
+
     // --- INCLUDE view first so $error can be displayed ---
-    require_once __DIR__ . '/../views/pages/Register.php';
+    $this->call->view('pages/Register', ['error' => $error]);
 
     // --- UNSET session after view is included ---
     unset($_SESSION['register_error']);
