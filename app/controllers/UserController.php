@@ -345,7 +345,7 @@ public function login()
         if (empty($username) || empty($password)) {
             $data['error'] = 'Username and password are required';
             $this->call->view('pages/Login', $data);
-            return;
+            exit; // Ensure script stops here
         }
 
         $user = $this->UsersModel->get_user_by_username($username)
@@ -354,19 +354,19 @@ public function login()
         if (!$user) {
             $data['error'] = 'Account not found!';
             $this->call->view('pages/Login', $data);
-            return;
+            exit; // Ensure script stops here
         }
 
         if ($user['is_verified'] == 0) {
             $data['error'] = 'Your account is not verified yet. Please check your email.';
             $this->call->view('pages/Login', $data);
-            return;
+            exit; // Ensure script stops here
         }
 
         if (!password_verify($password, $user['password'])) {
             $data['error'] = 'Incorrect username or password!';
             $this->call->view('pages/Login', $data);
-            return;
+            exit; // Ensure script stops here
         }
 
         // Login successful
@@ -381,8 +381,9 @@ public function login()
         $this->auth->login($user['username'], $password);
         $_SESSION['user'] = $user_data;
 
-        redirect('/users/user-page');  // ← SUCCESS → DASHBOARD
-        return;
+        // Force redirect with proper headers
+        header('Location: /users/user-page');
+        exit; // Ensure script stops and redirect happens
     }
 
     // GET request → show login page
