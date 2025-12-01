@@ -344,7 +344,7 @@ public function login()
 
         if (empty($username) || empty($password)) {
             $data['error'] = 'Username and password are required';
-            $this->call->view('pages/login', $data);
+            $this->call->view('pages/Login', $data);
             return;
         }
 
@@ -353,19 +353,19 @@ public function login()
 
         if (!$user) {
             $data['error'] = 'Account not found!';
-            $this->call->view('pages/login', $data);
+            $this->call->view('pages/Login', $data);
             return;
         }
 
         if ($user['is_verified'] == 0) {
             $data['error'] = 'Your account is not verified yet. Please check your email.';
-            $this->call->view('pages/login', $data);
+            $this->call->view('pages/Login', $data);
             return;
         }
 
         if (!password_verify($password, $user['password'])) {
             $data['error'] = 'Incorrect username or password!';
-            $this->call->view('pages/login', $data);
+            $this->call->view('pages/Login', $data);
             return;
         }
 
@@ -386,7 +386,7 @@ public function login()
     }
 
     // GET request → show login page
-    $this->call->view('pages/login');
+    $this->call->view('pages/Login');
 }
 
 public function logout()
