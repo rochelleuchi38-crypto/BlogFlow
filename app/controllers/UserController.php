@@ -452,6 +452,10 @@ public function user_page()
     // Get user's own posts for analytics
     $user_posts = $this->UsersModel->get_posts_by_user($user_id);
 
+    // Ensure posts are arrays to prevent errors
+    $posts = is_array($posts) ? $posts : [];
+    $user_posts = is_array($user_posts) ? $user_posts : [];
+
     // Add likes, comments, and replies info to global posts for display
     if (!empty($posts)) {
         foreach ($posts as &$post) {
@@ -525,7 +529,7 @@ public function user_page()
         'totalMedia' => $totalMedia,
         'images' => $images,
         'videos' => $videos,
-        'lastPostDate' => $analytics_data[0]['created_at'] ?? 'No posts yet'
+        'lastPostDate' => (!empty($analytics_data) ? $analytics_data[0]['created_at'] : 'No posts yet')
     ];
 
     // Top categories based on analytics data
