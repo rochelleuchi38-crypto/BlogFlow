@@ -1,4 +1,6 @@
 <?php
+defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+
 // Capture session messages
 $error = $_SESSION['register_error'] ?? '';
 $success = $_SESSION['register_success'] ?? '';
