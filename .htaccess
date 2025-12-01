@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /LavaLustProject/
+    RewriteBase /
     
     # Remove www from URL
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
